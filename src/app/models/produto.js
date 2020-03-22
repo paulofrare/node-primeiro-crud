@@ -1,19 +1,34 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const Sequelize = require("sequelize");
+const sequelize = require("../../config/database");
 
-var ProdutoSchema = new Schema({
+var Produto = sequelize.define("produtos", {
   nome: {
-    type: String,
-    required: true
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: "Nome do produto é obrigatório"
+      }
+    }
   },
-  preco: {
-    type: Number,
-    required: true
+  valor: {
+    type: Sequelize.DOUBLE,
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: "Valor é obrigatório"
+      }
+    }
   },
   descricao: {
-    type: String,
-    required: true
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: "Descricao é Obrigatória"
+      }
+    }
   }
 });
 
-module.exports = mongoose.model("Produto", ProdutoSchema);
+module.exports = Produto;

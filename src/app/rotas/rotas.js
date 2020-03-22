@@ -1,4 +1,4 @@
-var Produto = require("../models/produto");
+// var Produto = require("../models/produto");
 
 const ProdutoController = require("../controllers/produto-controller");
 const produtoController = new ProdutoController();
@@ -19,7 +19,7 @@ module.exports = app => {
     .get(produtoController.lista());
 
   app
-    .route("/produtos/:produto_id")
+    .route("/produtos/:id")
     .get(produtoController.listaPorId())
     .put(produtoController.atualiza())
     .delete(produtoController.deleta());
