@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../../config/database");
 
-var Produto = sequelize.define("produtos", {
+const Produto = sequelize.define("produtos", {
   nome: {
     type: Sequelize.STRING,
     allowNull: false,

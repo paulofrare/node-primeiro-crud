@@ -1,10 +1,10 @@
-const produto = require("../models/produto");
+const Produto = require("../models/produto");
 
 class ProdutoController {
   lista() {
     return async (req, resp) => {
       try {
-        const prod = await produto.findAll({
+        const prod = await Produto.findAll({
           attributes: ["id", "nome", "valor", "descricao"]
         });
         resp.status(200).json(prod);
@@ -24,11 +24,12 @@ class ProdutoController {
 
   cadastra() {
     return async (req, resp) => {
+      const { nome, valor, descricao } = req.body;
       try {
-        await produto.create({
-          nome: req.body.nome,
-          valor: req.body.valor,
-          descricao: req.body.descricao
+        await Produto.create({
+          nome,
+          valor,
+          descricao
         });
         resp.status(201).json({ message: "Produto cadastrado com sucesso!!!" });
       } catch (error) {
@@ -52,11 +53,10 @@ class ProdutoController {
 
   listaPorId() {
     return async (req, resp) => {
+      const { id } = req.params;
       try {
-        const prod = await produto.findAll({
-          where: {
-            id: req.params.id
-          }
+        const prod = await Produto.findAll({
+          where: { id }
         });
         resp.status(200).json(prod);
       } catch (error) {
@@ -76,7 +76,7 @@ class ProdutoController {
   atualiza() {
     return async (req, resp) => {
       try {
-        const prod = await produto.update(
+        const prod = await Produto.update(
           {
             nome: req.body.nome,
             valor: req.body.valor,
@@ -116,12 +116,12 @@ class ProdutoController {
   deleta() {
     return async (req, resp) => {
       try {
-        const prod = await produto.destroy({
+        const prod = await Produto.destroy({
           where: {
             id: req.params.id
           }
         });
-        resp.status(201).json({ message: "Produto deletado com sucesso!!!" });
+        resp.status(200).json({ message: "Produto deletado com sucesso!!!" });
       } catch (error) {
         return resp
           .status(400)
